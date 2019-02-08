@@ -1,0 +1,29 @@
+﻿@page "/board"
+@using Storytime2.App.Services
+@inject TodoistService TodoistService
+
+<h1>Board</h1>
+
+@if (items == null)
+{
+	<p>Loading...</p>
+}
+else
+{
+	<ol>
+		@foreach (Item item in items)
+		{
+			<li>@item.Content</li>
+		}
+	</ol>
+}
+
+
+@functions {
+	Item[] items = null;
+
+	protected override async Task OnInitAsync()
+	{
+		items = await TodoistService.GetTodosAsync();
+	}
+}
